@@ -16,7 +16,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_key_pair" "main" {
   key_name   = "gomex-keypair"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5t4cjtIm82R7BDTz/iWI5RVX4EuN85Tatdi80Ju8Lh/K2HfmyqTL0uWDsdAtpqA94fNQld/WfxV0i/F9RMg5C5zyJyHvOxzuYKPwt8xLOQr3sBrEeWx/DZQl7CW1kM9Rg6VC0UdqHlD2CC91yBS/liFo7lZaF0a5oSmTYxvtqpBOFm4ZP8HJrOZrZVNVG9MgQJFTmpF7u0sdT2BerbmfeBEa20ahv9ClBIPUMIaicMntY5Jv3Qc9vIS2kOV36Etk/l9NklSl1GN+X3GKxX+FbD+k9x6lEgWk6h0uEQKvVNmi4R2Zle4ufopcqXozy8bn1rY0lomcaUTDV85BE/CNRfHZKychjjwnPlzE/CYfJTJqBbG/29OQLLViCfTbJlR21obznrnIpUl8Xj/tlPr8AVuICySHFEnjeaH9nNLUcwsaue0URIRSo1n9OgTlLgltGWkMt/baPNxv4XHMMwxRzaEunhI54+2U0Oq/8oZqeCu5o/dM1+2onPBk1Bx2tQL8= rgomes@DNSF-080-DEVOPSENG-RG.local"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5t4cjtIm82R7BDTz/iWI5RVX4EuN85Tatdi80Ju8Lh/K2HfmyqTL0uWDsdAtpqA94fNQld/WfxV0i/F9RMg5C5zyJyHvOxzuYKPwt8xLOQr3sBrEeWx/DZQl7CW1kM9Rg6VC0UdqHlD2CC91yBS/liFo7lZaF0a5oSmTYxvtqpBOFm4ZP8HJrOZrZVNVG9MgQJFTmpF7u0sdT2BerbmfeBEa20ahv9ClBIPUMIaicMntY5Jv3Qc9vIS2kOV36Etk/l9NklSl1GN+X3GKxX+FbD+k9x6lEgWk6h0uEQKvVNmi4R2Zle4ufopcqXozy8bn1rY0lomcaUTDV85BE/CNRfHZKychjjwnPlzE/CYfJTJqBbG/29OQLLViCfTbJlR21obznrnIpUl8Xj/tlPr8AVuICySHFEnjeaH9nNLUcwsaue0URIRSo1n9OgTlLgltGWkMt/baPNxv4XHMMwxRzaEunhI54+2U0Oq/8oZqeCu5o/dM1+2onPBk1Bx2tQL8="
 }
 
 resource "aws_instance" "main" {
@@ -24,7 +24,7 @@ resource "aws_instance" "main" {
   instance_type = var.instance_type
   vpc_security_group_ids = ["${aws_security_group.main.id}"]
   subnet_id     = tolist(data.aws_subnet_ids.main.ids)[0]
-  key_name      = "descomplicando_terraform"
+  key_name      = aws_key_pair.main.key_name
 
   root_block_device {
     volume_type = var.root_block_device_volume_type
